@@ -13,18 +13,34 @@
 ```cs
 public override void OnFrameworkInitializationCompleted()
 {
-    // 如果使用 CommunityToolkit，则需要用下面一行移除 Avalonia 数据验证。
-    // 如果没有这一行，数据验证将会在 Avalonia 和 CommunityToolkit 中重复。
     BindingPlugins.DataValidators.RemoveAt(0);
 
     // 注册应用程序运行所需的所有服务
     var collection = new ServiceCollection();
-    collection.AddServices();
+    // 注入主窗口视图模型
+    collection.AddTransient<MainWindowViewModel>();
+    // 注册本地化
+    collection.AddLocalization<AvaloniaJsonLocalizationProvider>(() =>
+    {
+        var options = new AvaloniaLocalizationOptions(
+            // 支持的本地化语言文化
+            new List<CultureInfo>
+            {
+                new("en-US"),
+                new("uk-UA")
+            },
+            // defaultCulture, 用于设置当前文化（currentCulture）不在 cultures 列表中时的情况以及作为缺失的本地化条目的备用文化（fallback culture）
+            new CultureInfo("en-US"),
+            // currentCulture 在基础设施加载时设置，可以从应用程序设置或其他地方获取
+            Thread.CurrentThread.CurrentCulture,
+            // 包含本地化 JSON 文件的资源路径
+            $"{typeof(App).Namespace}/Assets/i18n");
+        return options;
+    });
 
     // 从 collection 提供的 IServiceCollection 中创建包含服务的 ServiceProvider
-    var service = collection.BuildServiceProvider();
-
-    var vm = service.GetRequiredService<MainWindowViewModel>();
+    var services = collection.BuildServiceProvider();
+    var vm = services.GetRequiredService<MainWindowViewModel>();
 
     if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
     {
