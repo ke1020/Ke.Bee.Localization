@@ -5,6 +5,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <LangVersion>12.0</LangVersion>
+    <Version>0.1.1</Version>
+    <Product>Avalonia 基于 json 的本地化库</Product>
+    <Description>Avalonia 基于 json 的本地化库 (The Avalonia localization library based on JSON).</Description>
+    <PackageTags>Net8 Avalonia Json Localization</PackageTags>
+    <PackageLicense>https://github.com/ke1020/Ke.Bee.Localization?tab=MIT-1-ov-file</PackageLicense>
+    <PackageProjectUrl>https://github.com/ke1020/Ke.Bee.Localization</PackageProjectUrl>
+    <PackageIconUrl></PackageIconUrl>
   </PropertyGroup>
 
   <ItemGroup>
