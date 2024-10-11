@@ -27,7 +27,7 @@ public override void OnFrameworkInitializationCompleted()
             new List<CultureInfo>
             {
                 new("en-US"),
-                new("uk-UA")
+                new("zh-CN")
             },
             // defaultCulture, 用于设置当前文化（currentCulture）不在 cultures 列表中时的情况以及作为缺失的本地化条目的备用文化（fallback culture）
             new CultureInfo("en-US"),
