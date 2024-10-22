@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using Avalonia.Platform;
 using Ke.Bee.Localization.Options;
+using Ke.Bee.Localization.Providers.Abstractions;
 
 namespace Ke.Bee.Localization.Providers;
 
@@ -10,7 +11,10 @@ namespace Ke.Bee.Localization.Providers;
 /// </summary>
 public class AvaloniaJsonLocalizationProvider : JsonLocalizationProvider
 {
-    public AvaloniaJsonLocalizationProvider(LocalizationOptions options) : base(options)
+    public AvaloniaJsonLocalizationProvider(
+        LocalizationOptions options, 
+        IEnumerable<ILocalizaitonResourceContributor> localizaitonResourceContributors
+        ) : base(options, localizaitonResourceContributors)
     {
         if (Options is not AvaloniaLocalizationOptions)
             throw new ArgumentException("选项与请求的提供程序不兼容");

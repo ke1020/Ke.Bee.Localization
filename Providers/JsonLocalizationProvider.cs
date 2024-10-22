@@ -15,7 +15,10 @@ public abstract class JsonLocalizationProvider : LocalizationProviderBase
     private IDictionary<string, string> _activeDictionary = new Dictionary<string, string>();
     private IDictionary<string, string> _fallbackDictionary = new Dictionary<string, string>();
 
-    protected JsonLocalizationProvider(LocalizationOptions options) : base(options)
+    protected JsonLocalizationProvider(
+        LocalizationOptions options,
+        IEnumerable<ILocalizaitonResourceContributor> localizaitonResourceContributors
+        ) : base(options, localizaitonResourceContributors)
     {
     }
 
@@ -27,14 +30,22 @@ public abstract class JsonLocalizationProvider : LocalizationProviderBase
     /// <exception cref="InvalidDataException"></exception>
     private Dictionary<string, string> GetDictionary(CultureInfo culture)
     {
-        // load strings
+        // 从嵌入文件获取本地化资源
         using var stream = GetResourceStream(culture);
 
         if (stream != null)
         {
             using var streamReader = new StreamReader(stream, Encoding.UTF8);
             var json = streamReader.ReadToEnd();
-            return JsonSerializer.Deserialize<Dictionary<string, string>>(json)!;
+            var dic = JsonSerializer.Deserialize<Dictionary<string, string>>(json) ?? [];
+
+            // 从贡献者获取本地化资源
+            foreach (var contributor in Contributors)
+            {
+                dic = dic.Concat(contributor.GetResource(culture) ?? []).ToDictionary(x => x.Key, x => x.Value);
+            }
+
+            return dic;
         }
 
         throw new InvalidDataException($"不能载入语言文化 {culture.IetfLanguageTag}");
