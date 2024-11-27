@@ -77,4 +77,24 @@ public sealed class Localizer : ILocalizer, INotifyPropertyChanged
         Instance = new Localizer(provider);
         return Instance;
     }
+
+    /// <summary>
+    /// Translates the specified key.
+    /// </summary>
+    /// <param name="key">The key to look up.</param>
+    /// <param name="context">The context of the translation.</param>
+    /// <param name="args">The arguments to pass to the translation.</param>
+    /// <returns>The translated string.</returns>
+    public static string Tr(string? key, string? context = null, params object[] args)
+    {
+        if (key is null)
+            return string.Empty;
+
+        if (context is not null)
+            key = $"{context}/{key}";
+
+        string expression = Instance?[key] ?? string.Empty;
+
+        return string.Format(expression, args);
+    }
 }
