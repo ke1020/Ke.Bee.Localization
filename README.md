@@ -69,7 +69,7 @@ public override void OnFrameworkInitializationCompleted()
 ```xml
    <StackPanel>
     ...
-        <TextBlock Text="{i18n:Localize Greeting}" />
+        <TextBlock Text="{i18n:Localize Greeting, {Binding Value}}" />
     ...
     </StackPanel>
 ```

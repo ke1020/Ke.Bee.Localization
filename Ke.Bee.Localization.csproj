@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <LangVersion>12.0</LangVersion>
-    <Version>0.1.2</Version>
+    <Version>0.1.3</Version>
     <Product>Avalonia 基于 json 的本地化库</Product>
     <Description>Avalonia 基于 json 的本地化库 (The Avalonia localization library based on JSON).</Description>
     <PackageTags>Net8 Avalonia Json Localization</PackageTags>
