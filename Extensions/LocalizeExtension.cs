@@ -57,11 +57,6 @@ public class LocalizeExtension : MarkupExtension
     public string? Context { get; set; }
 
     /// <summary>
-    /// Gets or sets the default value to return if the localized string is not found.
-    /// </summary>
-    public string? Default { get; set; }
-
-    /// <summary>
     /// Initializes a new instance of the <see cref="LocalizeExtension" /> class with the specified key.
     /// </summary>
     /// <param name="key">The key of the localized string.</param>
@@ -144,9 +139,21 @@ public class LocalizeExtension : MarkupExtension
             if (!string.IsNullOrWhiteSpace(Context))
                 key = $"{Context}/{Key}";
 
+            
+            if(_bindings is null || _bindings.Length <= 0)
+            {
+                var refBinding = new ReflectionBindingExtension($"[{key}]")
+                {
+                    Mode = BindingMode.OneWay,
+                    Source = Localizer.Localizer.Instance
+                };
+
+                return refBinding.ProvideValue(serviceProvider);
+            }
+            
             ClrPropertyInfo keyInfo = new(
-                nameof(Key),
-                _ => Localizer.Localizer.Instance?[key],
+                $"[{key}]",  // 使用 Item 作为索引器名称，并指定键
+                _ => Localizer.Localizer.Instance?[key] ?? string.Empty,
                 null,
                 typeof(string));
 
@@ -159,9 +166,6 @@ public class LocalizeExtension : MarkupExtension
                 Mode = BindingMode.OneWay,
                 Source = Localizer.Localizer.Instance
             };
-
-            if (_bindings is null || _bindings.Length <= 0)
-                return binding;
 
             BindingBase[] bindingBases = GetBindings(binding);
 

@@ -13,8 +13,8 @@ public class AvaloniaJsonLocalizationProvider : JsonLocalizationProvider
 {
     public AvaloniaJsonLocalizationProvider(
         LocalizationOptions options, 
-        IEnumerable<ILocalizaitonResourceContributor> localizaitonResourceContributors
-        ) : base(options, localizaitonResourceContributors)
+        IEnumerable<ILocalizationResourceContributor> LocalizationResourceContributors
+        ) : base(options, LocalizationResourceContributors)
     {
         if (Options is not AvaloniaLocalizationOptions)
             throw new ArgumentException("选项与请求的提供程序不兼容");

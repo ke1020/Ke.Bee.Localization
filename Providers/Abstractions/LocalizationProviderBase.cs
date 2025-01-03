@@ -9,13 +9,13 @@ namespace Ke.Bee.Localization.Providers.Abstractions;
 public abstract class LocalizationProviderBase : ILocalizationProvider
 {
     private CultureInfo? _currentCulture;
-    protected IEnumerable<ILocalizaitonResourceContributor> Contributors { get; }
+    protected IEnumerable<ILocalizationResourceContributor> Contributors { get; }
 
     protected LocalizationProviderBase(
         LocalizationOptions options,
-        IEnumerable<ILocalizaitonResourceContributor> localizaitonResourceContributors)
+        IEnumerable<ILocalizationResourceContributor> LocalizationResourceContributors)
     {
-        Contributors = localizaitonResourceContributors;
+        Contributors = LocalizationResourceContributors;
         Options = options;
         ValidateOptions(Options);
         CurrentCulture = Options.CurrentCulture;

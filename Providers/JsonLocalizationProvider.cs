@@ -17,8 +17,8 @@ public abstract class JsonLocalizationProvider : LocalizationProviderBase
 
     protected JsonLocalizationProvider(
         LocalizationOptions options,
-        IEnumerable<ILocalizaitonResourceContributor> localizaitonResourceContributors
-        ) : base(options, localizaitonResourceContributors)
+        IEnumerable<ILocalizationResourceContributor> LocalizationResourceContributors
+        ) : base(options, LocalizationResourceContributors)
     {
     }
 
@@ -87,6 +87,6 @@ public abstract class JsonLocalizationProvider : LocalizationProviderBase
 
         return !string.IsNullOrEmpty(resource)
             ? resource.Replace("\\n", "\n")
-            : key;//$"{CurrentCulture.IetfLanguageTag}:{key}"; // 如果回退机制失败，返回的数据
+            : $"{CurrentCulture.IetfLanguageTag}:{key}"; // 如果回退机制失败，返回的数据
     }
 }

@@ -6,7 +6,7 @@ namespace Ke.Bee.Localization.Providers.Abstractions;
 /// <summary>
 /// 本地化资源贡献
 /// </summary>
-public interface ILocalizaitonResourceContributor
+public interface ILocalizationResourceContributor
 {
     /// <summary>
     /// 获取本地化资源

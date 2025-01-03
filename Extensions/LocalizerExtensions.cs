@@ -21,12 +21,12 @@ public static class LocalizerExtensions
         where T : LocalizationProviderBase
     {
         // 本地化资源贡献者集合
-        var localizaitonResourceContributors = services.BuildServiceProvider().GetService<IEnumerable<ILocalizaitonResourceContributor>>();
+        var localizationResourceContributors = services.BuildServiceProvider().GetService<IEnumerable<ILocalizationResourceContributor>>();
 
         // 调用委托方法获取配置选项
         var options = optionsDelegate?.Invoke();
         // 创建 T 类型的实例，并将配置选项传递给构造函数
-        if (Activator.CreateInstance(typeof(T), options, localizaitonResourceContributors) is ILocalizationProvider provider)
+        if (Activator.CreateInstance(typeof(T), options, localizationResourceContributors) is ILocalizationProvider provider)
         {
             // 初始化服务实例
             var localizer = Localizer.Localizer.Initialize(provider);
