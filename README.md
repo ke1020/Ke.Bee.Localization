@@ -1,3 +1,5 @@
+# Avalonia 基于 `JSON` 的本地化库
+
 一个带有自身抽象层的本地化库，提供了创建本地化基础设施的可能性。它包含了基本的 `JSON` 本地化提供程序实现。项目是 [TekDeq.Localization](https://github.com/semack/TekDeq.Localization) 的一个衍生版本，主要进行了以下修改：
 
 - 升级了依赖库；
